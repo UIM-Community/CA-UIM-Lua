@@ -1,23 +1,26 @@
 --
 -- Main.lua
 --
-local _start = os.clock();
-local function load_external_lua(path) 
-    local buf = file.read(path);
-    if buf == nil then
-        return nil;
+local lib; 
+do
+    local _start = os.clock();
+    local function load_external_lua(path) 
+        local buf = file.read(path);
+        if buf == nil then
+            return nil;
+        end
+        local _a = assert;
+        local _s = loadstring;
+        local export = _a(_s(buf));
+        return export(); 
     end
-    local _a = assert;
-    local _s = loadstring;
-    local export = _a(_s(buf));
-    return export(); 
+    lib = load_external_lua("D:\\apps\\Nimsoft\\probes\\service\\nas\\lua_framework\\test.txt");
+    if lib == nil then 
+        exit(1); 
+    else 
+        print("Loading time : "..os.clock() - _start);
+    end
 end
-local lib = load_external_lua("D:\\apps\\Nimsoft\\probes\\service\\nas\\lua_framework\\test.txt");
-
-if lib == nil then
-    return;
-end
-print("Loading time : "..os.clock() - _start);
 
 local a = {
     foo = "bar"
