@@ -3,10 +3,17 @@
 --
 local function load_external_lua(path) 
     local buf = file.read(path);
+    if(buf == nil) {
+        return nil;
+    }
     local export = assert(loadstring(buf));
     return export(); 
 end
-local lib = load_external_lua("system_path_here\\external.lua");
+local lib = load_external_lua("D:\\apps\\Nimsoft\\probes\\service\\nas\\lua_framework\\test.txt");
+
+if(lib == nil) {
+    return;
+}
 
 local a = {
     foo = "bar"
